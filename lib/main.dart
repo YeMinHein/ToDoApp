@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo/pages/home_page.dart';
 import 'package:todo/theme/darkmode.dart';
 
-void main() {
+void main() async {
+  //intial hive
+  await Hive.initFlutter();
+  //open box
+  var box = await Hive.openBox('toDoDb');
   runApp(const MyApp());
 }
 
@@ -15,7 +20,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: homePage(),
-      theme: darkMode,
+      theme: lightMode,
     );
   }
 }

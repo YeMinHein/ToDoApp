@@ -1,8 +1,10 @@
 // ignore_for_file: camel_case_types
 
 import 'package:flutter/material.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo/compnent/dialog_box.dart';
 import 'package:todo/compnent/todo_title.dart';
+import 'package:todo/data/database.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -13,27 +15,68 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   @override
+  //refrence data base
+  final _myBox = Hive.box('toDoDb');
+  ToDoDataBase db = ToDoDataBase();
   TextEditingController name = TextEditingController();
+
+  void initState() {
+    if (_myBox.get("TODOLIST") == null) {
+      db.createinitalToDo();
+    } else {
+      db.loadData();
+    }
+    super.initState();
+  }
+
   //checkbox task
   checkChange(bool? value, int index) {
     setState(() {
-      toDoList[index][1] = !toDoList[index][1];
+      db.toDoList[index][1] = !db.toDoList[index][1];
     });
+    db.updateData();
   }
-
-  List toDoList = [
-    ["Make tural", false],
-    ["Make bake", false],
-  ];
 
   //crate new task
   createNewTask() {
     showDialog(
       context: context,
       builder: (context) {
-        return DialogBox();
+        return DialogBox(
+          name: name,
+          save: onSave,
+          cancel: oncancel,
+        );
       },
     );
+  }
+
+  //delete task
+  void deleteTask(int index) {
+    setState(() {
+      db.toDoList.removeAt(index);
+    });
+    db.updateData();
+  }
+
+  clear() {
+    name.clear();
+  }
+
+  void onSave() {
+    setState(() {
+      if (name.text.isNotEmpty) {
+        db.toDoList.add([name.text, false]);
+        clear();
+      }
+    });
+    Navigator.pop(context);
+    db.updateData();
+  }
+
+  void oncancel() {
+    clear();
+    Navigator.pop(context);
   }
 
   Widget build(BuildContext context) {
@@ -48,12 +91,13 @@ class _homePageState extends State<homePage> {
         child: Icon(Icons.add),
       ),
       body: ListView.builder(
-        itemCount: toDoList.length,
+        itemCount: db.toDoList.length,
         itemBuilder: (context, index) {
           return ToDoTitle(
-            taskname: toDoList[index][0],
-            taskcomplete: toDoList[index][1],
+            taskname: db.toDoList[index][0],
+            taskcomplete: db.toDoList[index][1],
             onchange: (value) => checkChange(value, index),
+            onDelete: (context) => deleteTask(index),
           );
         },
       ),
