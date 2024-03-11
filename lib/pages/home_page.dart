@@ -2,10 +2,13 @@
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/compnent/dialog_box.dart';
+import 'package:todo/compnent/themebutton.dart';
 import 'package:todo/compnent/todo_title.dart';
 import 'package:todo/data/database.dart';
 import 'package:todo/theme/darkmode.dart';
+import 'package:todo/theme/provider_theme.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -82,13 +85,26 @@ class _homePageState extends State<homePage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text("TO DO"),
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.wb_sunny)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.wb_sunny))
+          ThemeButton(
+            height: 40,
+            width: 40,
+            icon: Icon(
+              (Provider.of<ProviderThemeChange>(context).themeData == darkMode
+                  ? Icons.light_mode
+                  : Icons.dark_mode),
+              size: 30,
+            ),
+            onTap: () {
+              Provider.of<ProviderThemeChange>(context, listen: false)
+                  .toggleTheme();
+            },
+          )
         ],
       ),
       floatingActionButton: FloatingActionButton(
