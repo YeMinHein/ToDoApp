@@ -1,14 +1,21 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:todo/pages/home_page.dart';
 import 'package:todo/theme/darkmode.dart';
+import 'package:todo/theme/provider_theme.dart';
 
 void main() async {
   //intial hive
   await Hive.initFlutter();
   //open box
   var box = await Hive.openBox('toDoDb');
-  runApp(const MyApp());
+  runApp(ChangeNotifierProvider(
+    create: (context) => ProviderThemeChange(),
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,7 +27,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: homePage(),
-      theme: lightMode,
+      theme: Provider.of<ProviderThemeChange>(context).themeData,
     );
   }
 }

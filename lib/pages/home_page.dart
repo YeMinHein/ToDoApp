@@ -5,6 +5,7 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo/compnent/dialog_box.dart';
 import 'package:todo/compnent/todo_title.dart';
 import 'package:todo/data/database.dart';
+import 'package:todo/theme/darkmode.dart';
 
 class homePage extends StatefulWidget {
   const homePage({super.key});
@@ -85,6 +86,10 @@ class _homePageState extends State<homePage> {
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         title: Text("TO DO"),
+        actions: [
+          IconButton(onPressed: () {}, icon: Icon(Icons.wb_sunny)),
+          IconButton(onPressed: () {}, icon: Icon(Icons.wb_sunny))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: createNewTask,
