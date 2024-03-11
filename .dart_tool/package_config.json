@@ -182,12 +182,6 @@
       "languageVersion": "2.18"
     },
     {
-      "name": "flutter_lints",
-      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_lints-3.0.1",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
-    },
-    {
       "name": "flutter_slidable",
       "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_slidable-3.0.1",
       "packageUri": "lib/",
@@ -288,12 +282,6 @@
       "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/leak_tracker_testing-2.0.1",
       "packageUri": "lib/",
       "languageVersion": "3.1"
-    },
-    {
-      "name": "lints",
-      "rootUri": "file:///C:/Users/User/AppData/Local/Pub/Cache/hosted/pub.dev/lints-3.0.0",
-      "packageUri": "lib/",
-      "languageVersion": "3.0"
     },
     {
       "name": "logging",
@@ -572,7 +560,7 @@
       "languageVersion": "3.3"
     }
   ],
-  "generated": "2024-03-11T08:13:27.347487Z",
+  "generated": "2024-03-11T09:34:50.270915Z",
   "generator": "pub",
   "generatorVersion": "3.3.0"
 }
